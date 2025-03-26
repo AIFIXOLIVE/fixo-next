@@ -1,4 +1,6 @@
-// src/app/page.js
+
+'use client';
+
 
 export const metadata = {
   title: 'AI Tools & Automation Services – Fixo.live',
@@ -29,7 +31,7 @@ export const metadata = {
   },
 };
 
-'use client';
+
 
 export default function Home() {
   return (
