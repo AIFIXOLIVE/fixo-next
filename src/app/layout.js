@@ -1,4 +1,5 @@
 import './globals.css';
+import MenuBehavior from './components/MenuBehavior';
 
 export default function RootLayout({ children }) {
   return (
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
             </ul>
           </nav>
         </header>  
+        <MenuBehavior />
         {children}
         </body>
     </html>
