@@ -48,12 +48,25 @@ export default function ServicesList() {
 
     fetch(url)
       .then(res => res.json())
-      .then(data => {
+      .then(async data => {
         if (data.length === 0) {
           setEndReached(true);
           return;
         }
-        setServices(prev => reset ? data : [...prev, ...data]);
+
+        const withLikes = await Promise.all(
+          data.map(async (service) => {
+            try {
+              const res = await fetch(`https://api.dev-fixo-live.workers.dev/api/likes?service_id=${service.id}`);
+              const likeData = await res.json();
+              return { ...service, likes: likeData.likes || 0 };
+            } catch {
+              return { ...service, likes: 0 };
+            }
+          })
+        );
+
+        setServices(prev => reset ? withLikes : [...prev, ...withLikes]);
         setOffset(prev => reset ? chunkSize : prev + chunkSize);
       })
       .finally(() => setLoading(false));
@@ -69,9 +82,25 @@ export default function ServicesList() {
 
   const router = useRouter();
 
+  const handleLike = async (e, serviceId) => {
+    e.stopPropagation();
+    await fetch("https://api.dev-fixo-live.workers.dev/api/likes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ service_id: serviceId }),
+    });
+    const res = await fetch(`https://api.dev-fixo-live.workers.dev/api/likes?service_id=${serviceId}`);
+    const updated = await res.json();
+    setServices(prev =>
+      prev.map(s =>
+        s.id === serviceId ? { ...s, likes: updated.likes || 0 } : s
+      )
+    );
+  };
+
   return (
     <>
-      <div className="category-scroll-wrapper">
+      <div className="category-scroll-wrapper" style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
         <div id="filtersContainer">
           {categories.map(cat => (
             <label key={cat} className="category-label">
@@ -101,7 +130,12 @@ export default function ServicesList() {
                 </svg>
               </a>
               <div className="corner bottom-left">{service.pricing || 'N/A'}</div>
-              <div className="corner bottom-right likes">❤️ {service.likes || 0}</div>
+              <div
+                className="corner bottom-right likes"
+                onClick={(e) => handleLike(e, service.id)}
+              >
+                ❤️ {service.likes || 0}
+              </div>
             </div>
             <h2>{service.name}</h2>
             <p>{service.description}</p>
