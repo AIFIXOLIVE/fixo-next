@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import ServiceCard from './ServiceCard';
 import CategoryFilter from './CategoryFilter';
+import LoaderSkeleton from './LoaderSkeleton';
+
 
 export default function ServicesList() {
   const [services, setServices] = useState([]);
@@ -62,22 +64,25 @@ export default function ServicesList() {
 
   return (
     <>
-      <CategoryFilter
-        categories={categories}
-        selectedCategories={selectedCategories}
-        onToggle={cat =>
-          setSelectedCategories(prev =>
-            prev.includes(cat)
-              ? prev.filter(c => c !== cat)
-              : [...prev, cat]
-          )
-        }
-      />
+<div className="category-scroll-wrapper">
+  <CategoryFilter
+    categories={categories}
+    selectedCategories={selectedCategories}
+    onToggle={cat =>
+      setSelectedCategories(prev =>
+        prev.includes(cat)
+          ? prev.filter(c => c !== cat)
+          : [...prev, cat]
+      )
+    }
+  />
+</div>
+
       <main id="services" className="grid">
         {services.map(service => (
           <ServiceCard key={service.id} service={service} />
         ))}
-        {loading && <p>Loading...</p>}
+        {loading && <LoaderSkeleton count={chunkSize} />}
       </main>
     </>
   );
