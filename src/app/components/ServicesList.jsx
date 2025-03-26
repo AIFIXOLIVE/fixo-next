@@ -64,7 +64,6 @@ export default function ServicesList() {
 
   return (
     <>
-<div className="category-scroll-wrapper">
   <CategoryFilter
     categories={categories}
     selectedCategories={selectedCategories}
@@ -76,8 +75,6 @@ export default function ServicesList() {
       )
     }
   />
-</div>
-
       <main id="services" className="grid">
         {services.map(service => (
           <ServiceCard key={service.id} service={service} />
