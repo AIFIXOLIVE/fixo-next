@@ -1,4 +1,4 @@
-// ✅ Удали 'use client'
+
 export const metadata = {
   title: 'AI Tools & Automation Services – Fixo.live',
   description: 'Discover top AI tools, automation services, and chatbots to boost your productivity. Fixo.live helps you stay ahead with the latest innovations.',
