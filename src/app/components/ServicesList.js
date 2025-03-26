@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import CategoryFilter from './CategoryFilter';
 import ServiceCard from './ServiceCard';
-import SkeletonCard from './SkeletonCard';
+import LoaderSkeleton from './LoaderSkeleton';
 
 export default function ServicesList() {
   const [services, setServices] = useState([]);
@@ -85,7 +85,7 @@ export default function ServicesList() {
           <ServiceCard key={service.id} service={service} />
         ))}
         {loading && Array.from({ length: chunkSize }).map((_, i) => (
-          <SkeletonCard key={`skeleton-${i}`} />
+          <LoaderSkeleton key={`skeleton-${i}`} />
         ))}
       </main>
     </>
