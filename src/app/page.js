@@ -1,10 +1,9 @@
-'use client';
-
+// ✅ Удали 'use client'
 export const metadata = {
   title: 'AI Tools & Automation Services – Fixo.live',
   description: 'Discover top AI tools, automation services, and chatbots to boost your productivity. Fixo.live helps you stay ahead with the latest innovations.',
   keywords: 'AI tools, automation, SaaS, eCommerce, chatbot, CRM, Fixo.live',
-  authors: [{ name: 'Fixo.live777', url: 'https://ai.fixo.live' }],
+  authors: [{ name: 'Fixo.live', url: 'https://ai.fixo.live' }],
   openGraph: {
     title: 'AI Tools & Automation Services – Fixo.live',
     description: 'Top AI services, automation tools, and productivity boosters – all in one place.',
@@ -12,7 +11,7 @@ export const metadata = {
     siteName: 'Fixo.live',
     images: [
       {
-        url: 'https://ai.fixo.live/web-dev.webp', // путь к картинке в public
+        url: 'https://ai.fixo.live/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Fixo.live – AI Tools',
@@ -25,7 +24,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Fixo.live – AI Tools & Automation Services',
     description: 'Explore top-rated AI solutions to supercharge your business and workflows.',
-    images: ['https://ai.fixo.live/web-dev.webp'],
+    images: ['https://ai.fixo.live/og-image.jpg'],
   },
 };
 
